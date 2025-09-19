@@ -3,7 +3,15 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
 const sendGrid = require("@sendgrid/mail");
-const { firstNameValidation, lastNameValidation, emailValidation, passwordValidation, termsValidation, confirmPasswordValidation, userTypeValidation } = require("./validations");
+const {
+  firstNameValidation,
+  lastNameValidation,
+  emailValidation,
+  passwordValidation,
+  termsValidation,
+  confirmPasswordValidation,
+  userTypeValidation,
+} = require("./validations");
 const SEND_GRID_KEY = process.env.SENDGRID_API_KEY;
 
 sendGrid.setApiKey(SEND_GRID_KEY);
@@ -61,7 +69,6 @@ exports.postResetPassword = [
       user.otpExpiry = null;
       await user.save();
       res.redirect("/login");
-
     } catch (err) {
       res.render("auth/reset_password", {
         pageTitle: "Reset Password",
@@ -77,6 +84,10 @@ exports.postForgotPassword = async (req, res, next) => {
   const { email } = req.body;
   try {
     const user = await User.findOne({ email });
+    if (!user) {
+      throw new Error("User not found");
+    }
+
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     user.otp = otp;
     user.otpExpiry = Date.now() + 40 * 60 * 1000; // OTP valid for 5 minutes
@@ -137,8 +148,8 @@ exports.postSignup = [
   lastNameValidation,
   emailValidation,
   passwordValidation,
-  confirmPasswordValidation,  
-  userTypeValidation,  
+  confirmPasswordValidation,
+  userTypeValidation,
   termsValidation,
 
   async (req, res, next) => {

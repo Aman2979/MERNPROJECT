@@ -67,16 +67,10 @@
               </ul>
             </div>
 
-             <div class="mt-6 flex items-center space-x-3">
-               <a href="/rules/<%= home._id %>" 
-                  class="inline-flex items-center px-5 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-xl shadow-md hover:from-blue-600 hover:to-blue-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-300">
-                 <svg class="w-5 h-5 mr-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a2 2 0 012-2h2a2 2 0 012 2v2m-6 4h6a2 2 0 002-2V7a2 2 0 00-2-2h-1V4a2 2 0 10-4 0v1H9a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                 </svg>
-                 House Rules
-               </a>
-             </div>
-            
+            <div class="mt-4">
+              <a href="/rules/<%= home._id %>" class="text-blue-500 hover:text-blue-900">House Rules</a>
+            </div>
+
             <div class="space-y-4">
               <%- include('../partials/add-to-favourite', {home: home}) %>
             </div>

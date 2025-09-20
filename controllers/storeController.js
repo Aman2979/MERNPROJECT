@@ -59,15 +59,23 @@ exports.postAddFavourites = async (req, res, next) => {
   }
 };
 
-exports.postRemoveFavourite = (req, res, next) => {
+exports.postRemoveFavourite = async (req, res, next) => {
   const homeId = req.params.homeId;
-  Favourites.findOneAndDelete(homeId)
-    .then(() => {
-      res.redirect("/favourites");
-    })
-    .catch((err) => {
-      console.log("Error while deleting fav home", err);
-    });
+  const userId = req.session.user._id;
+
+  try {
+    const user = await User.findById(userId);
+    if (user && user.favouriteHomes) {
+      user.favouriteHomes = user.favouriteHomes.filter(
+        (favHomeId) => favHomeId.toString() !== homeId
+      );
+      await user.save();
+    }
+    res.redirect("/favourites");
+  } catch (err) {
+    console.log("Error while deleting fav home", err);
+    res.redirect("/favourites");
+  }
 };
 
 exports.getHomeDetails = (req, res, next) => {
@@ -88,8 +96,8 @@ exports.getHomeDetails = (req, res, next) => {
 
 exports.getRules = (req, res, next) => {
   // const homeId = req.params.homeId;
-  const rulesFileName = 'Airbnb_House_Rules.pdf';
+  const rulesFileName = "Airbnb_House_Rules.pdf";
   const filePath = path.join(rootDir, "rules", rulesFileName);
   // res.sendFile(filePath);
-  res.download(filePath, "Rules.pdf")
-}
+  res.download(filePath, "Rules.pdf");
+};

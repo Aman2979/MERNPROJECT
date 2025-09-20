@@ -1,83 +1,114 @@
 <%- include('../partials/head') %>
 </head>
-<body class="min-h-screen bg-gray-100">
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-gray-100 to-blue-100 flex flex-col">
   <%- include('../partials/nav') %>
-    <h1 class="text-4xl font-bold text-blue-600 mb-8 text-center mt-8">Signup here</h1>
-    <div class="flex justify-center">
-      <form action="/signup" method="POST" class="w-full max-w-md">
+  <main class="flex flex-1 items-center justify-center">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl p-10 md:p-12 mx-auto mt-10 mb-10">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-blue-700 mb-10 text-center tracking-tight drop-shadow-lg">Signup here</h1>
+      <form action="/signup" method="POST" class="space-y-6">
 
         <%- include('../partials/error-messages') %>
 
-        <input 
-          type="text" 
-          name="firstName"
-          value="<%= typeof oldInput !== 'undefined' ? oldInput.firstName : '' %>"
-          placeholder="First Name"
-          class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-        />
-        <input 
-          type="text" 
-          name="lastName"
-          value="<%= typeof oldInput !== 'undefined' ? oldInput.lastName : '' %>"
-          placeholder="Last Name"
-          class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-        />
-        <input 
-          type="email" 
-          name="email"
-          value="<%= typeof oldInput !== 'undefined' ? oldInput.email : '' %>"
-          placeholder="Enter your Email"
-          class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-        />
-        <input 
-          type="password" 
-          name="password"
-          value="<%= typeof oldInput !== 'undefined' ? oldInput.password : '' %>"
-          placeholder="Password"
-          class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-        />
-        <input 
-          type="password" 
-          name="confirm_password"
-          value="<%= typeof oldInput !== 'undefined' ? oldInput.confirm_password : '' %>"
-          placeholder="Confirm Password"
-          class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-        />
+        <div>
+          <label for="firstName" class="block text-gray-700 font-semibold mb-2">First Name</label>
+          <input 
+            type="text" 
+            name="firstName"
+            id="firstName"
+            value="<%= typeof oldInput !== 'undefined' ? oldInput.firstName : '' %>"
+            placeholder="First Name"
+            class="w-full px-5 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+            autocomplete="given-name"
+            required
+          />
+        </div>
+        <div>
+          <label for="lastName" class="block text-gray-700 font-semibold mb-2">Last Name</label>
+          <input 
+            type="text" 
+            name="lastName"
+            id="lastName"
+            value="<%= typeof oldInput !== 'undefined' ? oldInput.lastName : '' %>"
+            placeholder="Last Name"
+            class="w-full px-5 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+            autocomplete="family-name"
+            required
+          />
+        </div>
+        <div>
+          <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
+          <input 
+            type="email" 
+            name="email"
+            id="email"
+            value="<%= typeof oldInput !== 'undefined' ? oldInput.email : '' %>"
+            placeholder="Enter your Email"
+            class="w-full px-5 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+            autocomplete="email"
+            required
+          />
+        </div>
+        <div>
+          <label for="password" class="block text-gray-700 font-semibold mb-2">Password</label>
+          <input 
+            type="password" 
+            name="password"
+            id="password"
+            value="<%= typeof oldInput !== 'undefined' ? oldInput.password : '' %>"
+            placeholder="Password"
+            class="w-full px-5 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+            autocomplete="new-password"
+            required
+          />
+        </div>
+        <div>
+          <label for="confirm_password" class="block text-gray-700 font-semibold mb-2">Confirm Password</label>
+          <input 
+            type="password" 
+            name="confirm_password"
+            id="confirm_password"
+            value="<%= typeof oldInput !== 'undefined' ? oldInput.confirm_password : '' %>"
+            placeholder="Confirm Password"
+            class="w-full px-5 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+            autocomplete="new-password"
+            required
+          />
+        </div>
         
         <div class="mb-4">
-          <p class="text-gray-700 mb-2">User Type:</p>
-          <div class="flex space-x-4">
-            <label class="flex items-center">
+          <p class="text-gray-700 font-semibold mb-2">User Type:</p>
+          <div class="flex space-x-6">
+            <label class="flex items-center bg-blue-50 px-4 py-2 rounded-lg shadow-sm cursor-pointer hover:bg-blue-100 transition">
               <input 
                 type="radio" 
                 name="userType" 
                 value="guest"
-                class="mr-2"
+                class="mr-2 accent-blue-600"
                 <%= typeof oldInput !== 'undefined' && oldInput.userType === 'guest' ? 'checked' : '' %>
               />
-              <span class="text-gray-700">Guest</span>
+              <span class="text-gray-700 font-medium">Guest</span>
             </label>
-            <label class="flex items-center">
+            <label class="flex items-center bg-blue-50 px-4 py-2 rounded-lg shadow-sm cursor-pointer hover:bg-blue-100 transition">
               <input 
                 type="radio" 
                 name="userType" 
                 value="host"
-                class="mr-2"
+                class="mr-2 accent-blue-600"
                 <%= typeof oldInput !== 'undefined' && oldInput.userType === 'host' ? 'checked' : '' %>
               />
-              <span class="text-gray-700">Host</span>
+              <span class="text-gray-700 font-medium">Host</span>
             </label>
           </div>
         </div>
 
         <div class="mb-4">
-          <label class="flex items-center">
+          <label class="flex items-center cursor-pointer">
             <input 
               type="checkbox" 
               name="termsAccepted"
-              class="mr-2"
+              class="mr-2 accent-green-600"
             />
-            <span class="text-gray-700">I accept the terms and conditions</span>
+            <span class="text-gray-700">I accept the <a href="#" class="text-blue-500 underline hover:text-blue-700 transition">terms and conditions</a></span>
           </label>
         </div>
 
@@ -85,7 +116,7 @@
           <input 
             type="submit" 
             value="Sign me up"
-            class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer"
+            class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-lg tracking-wide"
           >
         </div>
       </form>

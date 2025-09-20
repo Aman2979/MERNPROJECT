@@ -2,6 +2,9 @@
   "name": "airbnb-app-aman",
   "version": "1.0.0",
   "main": "app.js",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tailwind": "npx tailwindcss -i ./public/styles/input.css -o ./public/styles/output.css --watch",

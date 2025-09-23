@@ -86,6 +86,7 @@ app.use("/host", (req, res, next) => {
   }
   next();
 });
+
 app.use("/host", hostRouter);
 app.use(authRouter);
 

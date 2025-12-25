@@ -4,7 +4,6 @@ const User = require("../models/User");
 const rootDir = require("../util/path-util");
 
 exports.getIndex = (req, res, next) => {
-  console.log(req.session);
   Home.find().then((registeredHomes) => {
     res.render("store/index", {
       homes: registeredHomes,
@@ -37,7 +36,6 @@ exports.getFavourites = async (req, res, next) => {
       user: req.session.user,
     });
   } catch (err) {
-    console.log(err);
     res.redirect("/");
   }
 };
@@ -53,7 +51,6 @@ exports.postAddFavourites = async (req, res, next) => {
       await user.save();
     }
   } catch (err) {
-    console.log(err);
   } finally {
     res.redirect("/favourites");
   }
@@ -73,7 +70,6 @@ exports.postRemoveFavourite = async (req, res, next) => {
     }
     res.redirect("/favourites");
   } catch (err) {
-    console.log("Error while deleting fav home", err);
     res.redirect("/favourites");
   }
 };
@@ -82,7 +78,6 @@ exports.getHomeDetails = (req, res, next) => {
   const homeId = req.params.homeIdentity;
   Home.findById(homeId).then((home) => {
     if (!home) {
-      console.log("home to found");
       return res.redirect("/homes");
     }
     res.render("store/home-detail", {

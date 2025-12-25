@@ -14,16 +14,13 @@ exports.getEditHome = (req, res, next) => {
   const homeId = req.params.homeId;
   const editing = req.query.editing === "true";
   if (!editing) {
-    console.log("Editing Flag is not set properly");
     return res.redirect("/host/host-homes");
   }
 
   Home.findById(homeId).then((home) => {
     if (!home) {
-      console.log("Home not found for editing");
       return res.redirect("/host/host-homes");
     }
-    console.log(homeId, editing, home);
     res.render("host/edit-home", {
       home: home,
       editing: editing,
@@ -37,8 +34,6 @@ exports.getEditHome = (req, res, next) => {
 exports.postAddHome = (req, res, next) => {
   const { houseName, price, location, rating,  description } =
     req.body;
-  console.log("Request Body", req.body);
-  console.log("House Photo", req.file);
 
   if (!req.file) {
     return res.status(400).send("Please upload a valid image file");
@@ -62,8 +57,6 @@ exports.postAddHome = (req, res, next) => {
 exports.postEditHome = (req, res, next) => {
   const { id, houseName, price, location, rating, description } =
     req.body;
-    console.log("Request Body", req.body);
-  console.log("House Photo", req.file);
   Home.findById(id)
     .then((exixtingHome) => {
       if (!exixtingHome) {
@@ -90,7 +83,6 @@ exports.postEditHome = (req, res, next) => {
 
 exports.postDeleteHome = (req, res, next) => {
   const homeId = req.params.homeId;
-  console.log("Came to delete ", homeId);
   Home.findById(homeId)
     .then((home) => {
       if (!home) {
@@ -109,7 +101,6 @@ exports.postDeleteHome = (req, res, next) => {
       res.redirect("/host/host-homes");
     })
     .catch((err) => {
-      console.error("Error deleting home:", err);
       res.redirect("/host/host-homes");
     });
 };

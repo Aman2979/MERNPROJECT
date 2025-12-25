@@ -1,43 +1,144 @@
 <%- include('../partials/head') %>
 </head>
+
 <body class="min-h-screen bg-gradient-to-br from-blue-50 via-gray-100 to-blue-100">
   <%- include('../partials/nav') %>
-  <main class="py-16 px-4">
+
+  <main class="py-14 px-4">
     <div class="container mx-auto max-w-7xl">
-      <h1 class="text-6xl md:text-7xl font-extrabold text-blue-700 mb-20 text-center tracking-tight drop-shadow-lg">Welcome to airbnb</h1>
+
+      <!-- Simple Welcome Section -->
+      <div class="text-center mb-16">
+        <h1 class="text-5xl md:text-6xl font-bold text-blue-700 tracking-tight">
+          BookMyStay
+        </h1>
+
+        <p class="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
+          BookMyStay is an online homestay booking platform that allows users
+          to explore available homes, view details such as price, location,
+          and ratings, and make informed booking decisions.
+        </p>
+      </div>
+
+      <!-- Homes Grid -->
       <div class="max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 justify-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+
           <% homes.forEach(home => { %>
-            <div class="flex-shrink-0 w-full bg-white rounded-3xl shadow-2xl hover:shadow-blue-200 hover:scale-105 transition-all duration-300 overflow-hidden border border-gray-200">
-              <div class="relative group">
-                <img src="<%= home.photoUrl %>" alt="<%= home.houseName %>" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
-                <div class="absolute top-4 right-4 bg-white/80 rounded-full px-4 py-1 shadow flex items-center gap-2">
-                  <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                  </svg>
-                  <span class="text-gray-800 font-semibold"><%= home.rating %>/5</span>
+            <div class="w-full bg-white rounded-2xl shadow-lg hover:shadow-xl transition duration-300 overflow-hidden border border-gray-200">
+
+              <!-- Image -->
+              <img 
+                src="<%= home.photoUrl %>" 
+                alt="<%= home.houseName %>" 
+                class="w-full h-60 object-cover"
+              >
+
+              <!-- Content -->
+              <div class="p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-2">
+                  <%= home.houseName %>
+                </h2>
+
+                <!-- Rating -->
+                <div class="flex items-center mb-3">
+                  <span class="text-gray-700">
+                    Rating: <strong><%= home.rating %>/5</strong>
+                  </span>
                 </div>
-              </div>
-              <div class="p-7">
-                <h2 class="text-2xl font-extrabold text-gray-900 mb-3 truncate"><%= home.houseName %></h2>
+
+                <!-- Location -->
                 <div class="flex items-center mb-4">
-                  <div class="flex items-center bg-blue-50 rounded-full px-3 py-1 shadow-sm">
-                    <svg class="w-5 h-5 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
-                    <span class="text-gray-700 font-medium"><%= home.location %></span>
-                  </div>
+                  <span class="text-gray-600">
+                    Location: <%= home.location %>
+                  </span>
                 </div>
-                <div class="flex items-center justify-between mt-6">
-                  <span class="text-3xl font-extrabold text-blue-600 bg-blue-50 px-5 py-2 rounded-lg shadow-inner">Rs<%= home.price %></span>
+
+                <!-- Price -->
+                <div class="flex justify-between items-center">
+                  <span class="text-lg font-bold text-blue-600">
+                    Rs <%= home.price %>
+                  </span>
+
+                  <a 
+                    href="/homes/<%= home._id %>"
+                    class="text-blue-600 hover:underline font-medium">
+                    View Details
+                  </a>
                 </div>
               </div>
+
             </div>
           <% }); %>
+
         </div>
       </div>
     </div>
   </main>
+  <footer class="bg-gray-900 text-gray-200 mt-20 shadow-inner">
+    <div class="container mx-auto max-w-6xl px-6 py-10">
+      <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-10">
+        
+        <!-- About -->
+        <div class="flex-1 mb-8 md:mb-0">
+          <h3 class="text-2xl font-bold mb-3 text-gray-100 tracking-wide">BookMyStay</h3>
+          <p class="text-gray-300 text-base leading-relaxed max-w-xs">
+            Your trusted platform to discover and book comfortable homestays with ease, confidence, and convenience.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="flex-1 mb-8 md:mb-0">
+          <h4 class="text-lg font-semibold mb-3 text-gray-100">Quick Links</h4>
+          <ul class="space-y-1 text-base text-gray-300">
+            <li>
+              <a href="/" class="hover:text-gray-400 transition-colors">Home</a>
+            </li>
+            <li>
+              <a href="/homes" class="hover:text-gray-400 transition-colors">View Homes</a>
+            </li>
+            <li>
+              <a href="/login" class="hover:text-gray-400 transition-colors">Login</a>
+            </li>
+            <li>
+              <a href="/signup" class="hover:text-gray-400 transition-colors">Sign Up</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="flex-1">
+          <h4 class="text-lg font-semibold mb-3 text-gray-100">Contact</h4>
+          <ul class="space-y-1 text-base">
+            <li class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M16 2H8C6.895 2 6 2.895 6 4v16c0 1.105.895 2 2 2h8c1.105 0 2-.895 2-2V4c0-1.105-.895-2-2-2z"/>
+                <path d="M6 4l6 6 6-6"/>
+              </svg>
+              support@bookmystay.com
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M3 5h2l3 7-1.5 4.5a1 1 0 00.93 1.32h9.14a1 1 0 00.93-1.32L19 12l3-7h2"/>
+              </svg>
+              +91 1234567890
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 10.38V21a1 1 0 01-1 1H4a1 1 0 01-1-1V10.38a1 1 0 01.512-.883l8-4.453a1 1 0 01.977 0l8 4.453A1 1 0 0121 10.38z"/>
+              </svg>
+              India
+            </li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="border-t border-gray-700 mt-10 pt-5 text-center text-sm text-gray-400">
+        © <%= new Date().getFullYear() %> <span class="font-semibold text-gray-100">BookMyStay</span>. All rights reserved.
+      </div>
+    </div>
+  </footer>
+  
+  
 </body>
 </html>

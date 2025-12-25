@@ -98,7 +98,7 @@ exports.postForgotPassword = async (req, res, next) => {
       from: process.env.FROM_EMAIL,
       subject: "Here is your OTP to reset password",
       html: `<h1>Opt is: ${otp}</h1>
-        <p>Enter this otp on <a href="http://localhost:3000/reset-password?email=${email}">Reset Password</a> page</p>`,
+        <p>Enter this otp on <a href="http://localhost:3001/reset-password?email=${email}">Reset Password</a> page</p>`,
     };
 
     await sendGrid.send(forgotEmail);
@@ -113,13 +113,8 @@ exports.postForgotPassword = async (req, res, next) => {
   }
 };
 
-exports.getSignup = (req, res, next) => {
-  res.render("auth/signup", { pageTitle: "Sign", isLoggedIn: false });
-};
-
 exports.postLogin = async (req, res, next) => {
   const { password, email } = req.body;
-  console.log(password, email);
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -142,6 +137,16 @@ exports.postLogin = async (req, res, next) => {
     });
   }
 };
+
+exports.getSignup = (req, res, next) => {
+  res.render("auth/signup", {
+    pageTitle: "Signup",
+    isLoggedIn: false,
+    errorMessages: [],
+  });
+};
+
+
 
 exports.postSignup = [
   firstNameValidation,
@@ -177,15 +182,6 @@ exports.postSignup = [
         userType,
       });
       await user.save();
-
-      const welcomeEmail = {
-        to: email,
-        from: process.env.FROM_EMAIL,
-        subject: "Welcome to Airbnb",
-        html: `<h1>Welcome ${firstName} ${lastName}! Please book your first vacation home with us.</h1>`,
-      };
-
-      await sendGrid.send(welcomeEmail);
 
       return res.redirect("/login");
     } catch (err) {
